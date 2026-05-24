@@ -160,7 +160,7 @@ RUST_LOG=debug ./corplink-rs config.json
   "username": "your_name",
   // support sha256sum hashed pass if you don't use ldap, will ask email for code if not provided
   "password": "your_pass",
-  // default is feilian, can be feilian/ldap/lark(aka feishu)/OIDC
+  // default is feilian, can be feilian/ldap/lark(aka feishu)/OIDC/okta
   // dingtalk/aad/weixin is not supported yet
   "platform": "ldap",
   "code": "totp code",

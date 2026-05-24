@@ -19,7 +19,7 @@ use sha2::Digest;
 
 use crate::api::{ApiName, ApiUrl, URL_GET_COMPANY};
 use crate::config::{
-    Config, WgConf, PLATFORM_CORPLINK, PLATFORM_LARK, PLATFORM_LDAP, PLATFORM_OIDC,
+    Config, WgConf, PLATFORM_CORPLINK, PLATFORM_LARK, PLATFORM_LDAP, PLATFORM_OIDC, PLATFORM_OKTA,
     STRATEGY_DEFAULT, STRATEGY_LATENCY,
 };
 use crate::qrcode::TerminalQrCode;
@@ -290,7 +290,7 @@ impl Client {
             Err(e) => {log::warn!("failed to generate qr code: {e}");}
         }
         match method {
-            PLATFORM_LARK | PLATFORM_OIDC => {
+            PLATFORM_LARK | PLATFORM_OIDC | PLATFORM_OKTA => {
                 log::info!("press enter if you finish auth");
                 let stdin = io::stdin();
                 stdin.lines().next();
@@ -708,7 +708,7 @@ impl Client {
         if otp.is_empty() {
             let is_tps_login = matches!(
                 self.conf.platform.as_deref(),
-                Some(PLATFORM_LARK | PLATFORM_OIDC)
+                Some(PLATFORM_LARK | PLATFORM_OIDC | PLATFORM_OKTA)
             );
             if is_tps_login {
                 log::info!("use empty 2fa code (tps login already verified)");
